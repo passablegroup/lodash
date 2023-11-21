@@ -25,11 +25,12 @@ function baseSet(object, path, value, customizer) {
       lastIndex = length - 1,
       nested = object;
 
+  var securePattern = new RegExp('^_*(proto|constructor|prototype)_*$');
   while (nested != null && ++index < length) {
     var key = toKey(path[index]),
         newValue = value;
 
-    if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+    if (securePattern.test(key)) {
       return object;
     }
 
